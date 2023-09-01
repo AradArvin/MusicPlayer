@@ -27,6 +27,7 @@ class Artist(models.Model):
         super(Artist, self).save(*args, **kwargs)
 
 
+
 class Song(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
@@ -56,8 +57,16 @@ class Song(models.Model):
         s = round(self.size / p, 2)
         return "%s %s" % (s, size_name[i])
 
+
+
 class Playlist(models.Model):
-    pass
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    songs = models.ManyToManyField(Song)
+
+    def __str__(self) -> str:
+        return self.title
 
 
 
