@@ -71,7 +71,9 @@ class Playlist(models.Model):
 
 
 class Like(models.Model):
-    pass
+    like = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
 
 
 
