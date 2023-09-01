@@ -3,6 +3,7 @@ from time import gmtime, strftime
 from datetime import datetime
 import math
 from django.template.defaultfilters import slugify
+from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
 
@@ -78,7 +79,14 @@ class Like(models.Model):
 
 
 class Comment(models.Model):
-    pass
+    class Status(models.TextChoices):
+        DRAFT = "P", _("Pending")
+        CANCEL = "B", _("Banned")
+        ACCEPT = "C", _("Confirmed")
+
+    confirm = models.CharField(choices=Status.choices, max_length=1)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
 
 
 
