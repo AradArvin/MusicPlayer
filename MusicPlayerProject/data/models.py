@@ -4,6 +4,7 @@ from datetime import datetime
 import math
 from django.template.defaultfilters import slugify
 from django.utils.translation import gettext_lazy as _
+from accounts.models import CustomUser
 # Create your models here.
 
 
@@ -32,7 +33,7 @@ class Artist(models.Model):
 class Song(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    artist = models.ManyToManyField(Artist)
+    artist = models.ManyToManyField(Artist, related_name="songs")
     upload_date = models.DateField(auto_now_add=True)
     cover_image = models.ImageField(upload_to="cover", null=True, blank=True)
     audio_file = models.FileField(upload_to="audio", null=True, blank=True)
@@ -63,8 +64,8 @@ class Song(models.Model):
 class Playlist(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    songs = models.ManyToManyField(Song)
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    songs = models.ManyToManyField(Song, related_name="playlists")
 
     def __str__(self) -> str:
         return self.title
@@ -73,7 +74,7 @@ class Playlist(models.Model):
 
 class Like(models.Model):
     like = models.BooleanField(default=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
 
 
@@ -85,7 +86,7 @@ class Comment(models.Model):
         ACCEPT = "C", _("Confirmed")
 
     confirm = models.CharField(choices=Status.choices, max_length=1)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
 
 
