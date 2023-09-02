@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Third Party apps
+    "debug_toolbar",
+    # Project apps
     "data",
     "accounts",
     "core",
@@ -51,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -72,6 +76,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+
+# Internal Ip for debug tool
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 
 # Database
@@ -120,7 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-# STATICFILES_DIRS = [os.path.join(BASE_DIR / "static")]
+STATICFILES_DIRS = [os.path.join(BASE_DIR / "static")]
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / "media"
 
