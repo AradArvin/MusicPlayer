@@ -88,6 +88,7 @@ class Comment(models.Model):
     confirm = models.CharField(choices=Status.choices, max_length=1)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    commentz = models.TextField()
 
 
 
