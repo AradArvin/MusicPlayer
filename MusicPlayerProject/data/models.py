@@ -40,11 +40,16 @@ class Song(models.Model):
     genre = models.ForeignKey(Genre, on_delete=models.DO_NOTHING)
     size = models.IntegerField(default=0)
     playtime = models.CharField(max_length=10, default="0.00")
-
+    slug = models.SlugField(unique=True)
 
     def __str__(self) -> str:
         return self.title
     
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Song, self).save(*args, **kwargs)
+
     @property
     def duration(self):
         return str((strftime("%H:%M:%S", gmtime(float(self.playtime)))))
