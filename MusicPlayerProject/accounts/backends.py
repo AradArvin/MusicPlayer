@@ -3,7 +3,7 @@ from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 
 
-class EmailOrUsernameModelBackend(ModelBackend):
+class EmailOrUsernameBackend(ModelBackend):
     """
     Authentication backend which allows users to authenticate using either their
     username or email address
