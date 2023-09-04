@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from .backends import EmailOrUsernameBackend
 from .forms import LoginForm, SignUpForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib import messages
 # Create your views here.
 
@@ -32,6 +32,13 @@ class LoginView(View):
         messages.error(request, "Wrong Login Data! Please try again!", "warning")
         return redirect("login")
 
+
+
+class LogoutView(View):
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return redirect("home")
+    
 
 
 class SignUpView(View):
