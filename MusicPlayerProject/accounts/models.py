@@ -12,11 +12,12 @@ class CustomUser(AbstractUser, PermissionsMixin):
 
     username = models.CharField(max_length=100, unique=True)
     email = models.EmailField(unique=True)
-    type = models.CharField(choices=AccountType.choices, max_length=1)
+    acc_type = models.CharField(choices=AccountType.choices, max_length=1, default="F")
     first_name = models.CharField(max_length=150, blank=True, null=True)
     last_name = models.CharField(max_length=150, blank=True, null=True)
     profile_pic = models.ImageField(upload_to="user", blank=True, null=True)
-    date_added = models.DateTimeField(default=timezone.now, editable=False, blank=True)
+    bio = models.TextField()
+    date_joined = models.DateTimeField(default=timezone.now, editable=False, blank=True)
 
     def __str__(self) -> str:
         return self.username
