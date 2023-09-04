@@ -10,6 +10,7 @@ from accounts.models import CustomUser
 
 class Genre(models.Model):
     name = models.CharField(max_length=50)
+    thumb_nail = models.ImageField(upload_to="genre", default="")
 
     def __str__(self) -> str:
         return self.name
