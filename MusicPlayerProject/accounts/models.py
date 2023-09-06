@@ -12,7 +12,7 @@ class CustomUser(AbstractUser, PermissionsMixin):
 
     username = models.CharField(max_length=100, unique=True)
     email = models.EmailField(unique=True)
-    acc_type = models.CharField(choices=AccountType.choices, max_length=1, default="F")
+    acc_type = models.CharField(choices=AccountType.choices, max_length=1, default="F" , verbose_name="Account Type")
     first_name = models.CharField(max_length=150, blank=True, null=True)
     last_name = models.CharField(max_length=150, blank=True, null=True)
     profile_pic = models.ImageField(upload_to="user", blank=True, null=True)
