@@ -1,0 +1,15 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+    <div style="position: relative; padding-left: 5%;">
+        <br>
+        <br>
+        <br>
+        <form action="#" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br>
+            <button class="button" type="submit">Upload CSV</button>
+        </form>
+    </div>
+    <br />
+{% endblock %}
