@@ -428,7 +428,7 @@ img {
     .header-area .oneMusic-main-menu .login-register-cart-button {
       position: relative;
       z-index: 1;
-      margin-left: 100px; }
+      margin-left: 50px; }
       @media only screen and (min-width: 768px) and (max-width: 991px) {
         .header-area .oneMusic-main-menu .login-register-cart-button {
           margin-left: 12px;
