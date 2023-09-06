@@ -54,6 +54,7 @@ class SignUpView(View):
     def post(self, request, *args, **kwargs):
         form = self.signup_form(request.POST)
         if form.is_valid():
+            form.clean()
             user = form.save(commit=False)
             password = user.password
             user.set_password(password)
