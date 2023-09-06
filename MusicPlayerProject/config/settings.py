@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Third Party apps
     "debug_toolbar",
+    "crispy_forms",
+    "crispy_bootstrap5",
     # Project apps
     "data",
     "accounts",
@@ -146,3 +148,8 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 AUTHENTICATION_BACKENDS = [
         'accounts.backends.EmailOrUsernameBackend',
     ]
+
+
+# crispy form
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
