@@ -13,8 +13,6 @@ class LoginView(View):
 
     def get(self, request, *args, **kwargs):
         logform = self.login_form
-        logform.fields['username'].required = False  # Makes username field optional
-        logform.fields['username'].widget.attrs['placeholder'] = 'Username or Email'  # Changes placeholder
         context = {"form":logform}
         return render(request, self.template_name, context)
 
@@ -27,9 +25,8 @@ class LoginView(View):
         user = EmailOrUsernameBackend.authenticate(self, request, username=username, password=password,)
         if user:
             login(request, user, backend="accounts.backends.EmailOrUsernameBackend")
-            messages.success(request, "Login Successful! Music Loading...", "success")
             return redirect("home")
-        messages.error(request, "Wrong Login Data! Please try again!", "warning")
+        messages.error(request, "Wrong Login Data! Please try again!")
         return redirect("login")
 
 
@@ -59,7 +56,7 @@ class SignUpView(View):
             password = user.password
             user.set_password(password)
             form.save()
-            return redirect("home")
+            return redirect("login")
         else:
-            messages.error(request, "Entered data could not be Validated! Please try again.", "warning")
+            messages.error(request, "Entered data could not be Validated! Please try again.")
             return redirect("signup")
