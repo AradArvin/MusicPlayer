@@ -10,7 +10,7 @@ from accounts.models import CustomUser
 
 class Genre(models.Model):
     name = models.CharField(max_length=50)
-    thumb_nail = models.ImageField(upload_to="genre", default="")
+    thumb_nail = models.ImageField(upload_to="genre", default="genre.avif")
 
     def __str__(self) -> str:
         return self.name
@@ -39,8 +39,8 @@ class Song(models.Model):
     cover_image = models.ImageField(upload_to="cover", null=True, blank=True)
     audio_file = models.FileField(upload_to="audio", null=True, blank=True)
     genre = models.ForeignKey(Genre, on_delete=models.DO_NOTHING)
-    size = models.IntegerField(default=0)
-    playtime = models.CharField(max_length=10, default="0.00")
+    size = models.DecimalField(default=0, max_digits=6, decimal_places=2)
+    playtime = models.CharField(max_length=10, default="0:00")
     slug = models.SlugField(unique=True)
 
     def __str__(self) -> str:
@@ -87,14 +87,14 @@ class Like(models.Model):
 
 class Comment(models.Model):
     class Status(models.TextChoices):
-        DRAFT = "P", _("Pending")
-        CANCEL = "B", _("Banned")
-        ACCEPT = "C", _("Confirmed")
+        PENDING = "P", _("Pending")
+        BAN = "B", _("Banned")
+        CONFIRM = "C", _("Confirmed")
 
-    confirm = models.CharField(choices=Status.choices, max_length=1)
+    confirm = models.CharField(choices=Status.choices, max_length=1, default="P")
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
-    commentz = models.TextField()
+    commentz = models.TextField(verbose_name="Comment")
 
 
 
