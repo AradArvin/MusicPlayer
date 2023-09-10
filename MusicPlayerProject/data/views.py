@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .models import Song
 from django.views.generic import ListView, DetailView
 from django.views import View
+from django.contrib.auth.decorators import login_required, permission_required
 # Create your views here.
 
 
@@ -31,32 +32,34 @@ class SongDetailView(DetailView):
         context["song"] = Song.objects.filter(pk=kwargs["pk"])
         return context
     
-
+    
+@permission_required
+@login_required
 class PlayListView(View):
     template_name = ""
 
 
-
+@login_required
 class LikeView():
     pass
 
 
-
+@login_required
 class LikedSongsView():
     pass
 
 
-
+@login_required
 class CreateCommentView():
     pass
 
 
-
+@login_required
 class CommentView():
     pass
 
 
-
+@login_required
 class ProfileView():
     pass
 
